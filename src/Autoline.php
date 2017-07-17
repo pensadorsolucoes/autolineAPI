@@ -31,7 +31,6 @@ class Autoline
 	protected $_client =[];
 
 	/**
-	* use a 2 types of data
 	* @var array
 	*		   userEmail
 	*		   userPassword
