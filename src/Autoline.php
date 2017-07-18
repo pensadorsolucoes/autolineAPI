@@ -94,37 +94,9 @@ class Autoline
 
 	/**
 	* 
-	* Get fuel types used in Autoline register
+	* Get Brazil Uf's
 	*
 	* @param string $params
-	*					modelId
-	*
-	* @return array 	
-	*
-	**/
-    public function getYearModel($params)
-	{
-		try{
-            $response = $this->_client->ConsultarAnosModelo(array_merge(self::$cfg, $params));
-            return [
-				'status' => 'ok',
-                'body' => $response
-            ];
-        } catch (\SoapFault $e) {
-            return [
-                'status' => 'fail',
-                'body' => $e->getMessage()
-            ];
-        }
-
-	}
-
-	/**
-	* 
-	* Get Uf's in Brazil
-	*
-	* @param string $params
-	*					stateId
 	*
 	* @return array 	
 	*
@@ -224,7 +196,34 @@ class Autoline
 
 	/**
 	* 
-	* Get version models by model
+	* Get years models by model
+	*
+	* @param string $params
+	*					modelId
+	*
+	* @return array 	
+	*
+	**/
+    public function getYearModel($params)
+	{
+		try{
+            $response = $this->_client->ConsultarAnosModelo(array_merge(self::$cfg, $params));
+            return [
+				'status' => 'ok',
+                'body' => $response
+            ];
+        } catch (\SoapFault $e) {
+            return [
+                'status' => 'fail',
+                'body' => $e->getMessage()
+            ];
+        }
+
+	}
+
+	/**
+	* 
+	* Get version models by year model
 	*
 	* @param string $params
 	*					modelYearId
@@ -797,7 +796,7 @@ class Autoline
     public function putAd($params)
 	{	
 		try{
-			$params['model'] = array_merge(['UserId' => self::$cfg['UserId'], 'AdId' => 0, 'idAnuncio'=>$params['idAnuncio']], $params['model']);
+			$params['model'] = array_merge(['UserId' => self::$cfg['UserId'], 'AdId' => $params['idAnuncio'], 'idAnuncio'=>$params['idAnuncio']], $params['model']);
             $response = $this->_client->AlterarAnuncioCarro(array_merge(self::$cfg, $params));
             return [
 				'status' => 'ok',
